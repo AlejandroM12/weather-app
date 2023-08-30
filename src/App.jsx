@@ -1,5 +1,11 @@
+import Card from './components/Card/Card';
+
 function App() {
-  return <h1>WEATHER APP</h1>;
+  return (
+    <div>
+      <Card />
+    </div>
+  );
 }
 
 export default App;
