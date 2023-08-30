@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useWeather } from '../../hooks/useWeather';
 import { Layout } from '../Layout';
+import { NotFound } from '../NotFound';
 
 const Card = () => {
   const [search, setSearch] = useState('');
@@ -16,9 +17,9 @@ const Card = () => {
       getWeather({ city: search });
     }
   };
-  console.log(weather);
+
   return (
-    <Layout weather={weather}>
+    <Layout weather={weather} error={error}>
       <div className='search-box'>
         <form onSubmit={handleSubmit}>
           <i className='fa-solid fa-location-dot'></i>
@@ -35,10 +36,13 @@ const Card = () => {
           ></button>
         </form>
       </div>
+      {error && <NotFound />}
       {loading && <p>Cargando...</p>}
-      {error && <p>Error: {error.message}</p>}
       {weather && (
-        <div className={`weather-box ${weather ? 'fadeIn' : ''}`}>
+        <div
+          className={`weather-box ${weather ? 'fadeIn' : ''}`}
+          style={{ display: error ? 'none' : 'block' }} // Hide when error is true
+        >
           <img src={`./assets/${weather.icon}`} alt='weather icon' />
           <p className='temperature'>
             {parseInt(weather.temp)}
@@ -47,23 +51,27 @@ const Card = () => {
           <p className='description'>{weather.description}</p>
         </div>
       )}
-
-      <div className={`weather-details ${weather ? 'fadeIn' : ''}`}>
-        <div className='humidity'>
-          <i className='fa-solid fa-water'></i>
-          <div className='text'>
-            <span>{weather.humidity} %</span>
-            <p>Humidity</p>
+      {!error && (
+        <div
+          className={`weather-details ${weather ? 'fadeIn' : ''}`}
+          style={{ display: error ? 'none' : 'block' }} // Hide when error is true
+        >
+          <div className='humidity'>
+            <i className='fa-solid fa-water'></i>
+            <div className='text'>
+              <span>{weather.humidity} %</span>
+              <p>Humidity</p>
+            </div>
+          </div>
+          <div className='wind'>
+            <i className='fa-solid fa-wind'></i>
+            <div className='text'>
+              <span>{weather.speed} Km/h</span>
+              <p>Wind Speed</p>
+            </div>
           </div>
         </div>
-        <div className='wind'>
-          <i className='fa-solid fa-wind'></i>
-          <div className='text'>
-            <span>{weather.speed} Km/h</span>
-            <p>Wind Speed</p>
-          </div>
-        </div>
-      </div>
+      )}
     </Layout>
   );
 };

@@ -169,3 +169,21 @@ form {
 .weather-active {
   height: 590px;
 }
+.not-found {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+
+  display: block;
+}
+
+.not-found img {
+  width: 70%;
+}
+
+.not-found p {
+  color: #06283d;
+  font-size: 22px;
+  font-weight: 500;
+  margin-top: 12px;
+}

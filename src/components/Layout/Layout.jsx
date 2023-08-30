@@ -1,13 +1,17 @@
-import PropTypes from 'prop-types';
+const Layout = ({ children, weather, error }) => {
+  const containerClassName = `container ${weather ? 'weather-active' : ''} ${
+    error ? 'weather-error' : ''
+  }`;
 
-const Layout = ({ children, weather }) => {
-  const containerClassName = `container ${weather ? 'weather-active' : ''}`;
-  return <div className={containerClassName}>{children}</div>;
-};
+  const containerStyle = {
+    height: error || weather ? '590px' : '105px',
+  };
 
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  weather: PropTypes.object,
+  return (
+    <div className={containerClassName} style={containerStyle}>
+      {children}
+    </div>
+  );
 };
 
 export default Layout;
