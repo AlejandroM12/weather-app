@@ -1,20 +1,17 @@
 import { useState } from 'react';
-
-const API_KEY = `2b137dbf91e096ea3ec00e6e53d620b3`;
+import { getCityWeather } from '../components/services/city';
 
 export function useWeather() {
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const getWeather = async (city) => {
-    setLoading(true);
+  const getWeather = async ({ city }) => {
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-      );
-      const data = await response.json();
-      setWeather(data);
+      setLoading(true);
+      setError(null);
+      const newSearchCity = await getCityWeather({ city });
+      setWeather(newSearchCity);
     } catch (error) {
       setError(error);
     } finally {
@@ -22,5 +19,5 @@ export function useWeather() {
     }
   };
 
-  return { weather, loading, error, getWeather };
+  return { weather, getWeather, error, loading };
 }
