@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useWeather } from '../../hooks/useWeather';
 import { Layout } from '../Layout';
 import { NotFound } from '../NotFound';
+import { Loader } from '../Loader';
 
 const Card = () => {
   const [search, setSearch] = useState('');
@@ -37,8 +38,8 @@ const Card = () => {
         </form>
       </div>
       {error && <NotFound />}
-      {loading && <p>Cargando...</p>}
-      {weather && (
+      {loading && <Loader />}
+      {weather && !loading && (
         <div
           className={`weather-box ${weather ? 'fadeIn' : ''}`}
           style={{ display: error ? 'none' : 'block' }} // Hide when error is true
@@ -51,10 +52,10 @@ const Card = () => {
           <p className='description'>{weather.description}</p>
         </div>
       )}
-      {!error && (
+      {weather && !loading && !error && (
         <div
           className={`weather-details ${weather ? 'fadeIn' : ''}`}
-          style={{ display: error ? 'none' : 'block' }} // Hide when error is true
+          style={{ display: error ? 'none' : 'flex' }}
         >
           <div className='humidity'>
             <i className='fa-solid fa-water'></i>
