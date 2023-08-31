@@ -74,7 +74,9 @@ form {
   color: #06283d;
   font-size: 28px;
 }
-
+.clear {
+  margin-left: 5px;
+}
 .weather-box {
   text-align: center;
 }
@@ -188,7 +190,6 @@ form {
   margin-top: 12px;
 }
 
-/* HTML: <div class="loader"></div> */
 .loader {
   width: 60px;
   aspect-ratio: 1;

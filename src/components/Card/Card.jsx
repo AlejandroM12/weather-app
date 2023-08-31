@@ -18,7 +18,9 @@ const Card = () => {
       getWeather({ city: search });
     }
   };
-
+  const handleClearSearch = () => {
+    setSearch('');
+  };
   return (
     <Layout weather={weather} error={error}>
       <div className='search-box'>
@@ -34,6 +36,12 @@ const Card = () => {
             className='fa-solid fa-magnifying-glass'
             type='submit'
             onSubmit={handleSubmit}
+          ></button>
+          <button
+            className='fas fa-times clear'
+            onClick={handleClearSearch}
+            disabled={!search}
+            style={{ opacity: search ? 1 : 0.5 }}
           ></button>
         </form>
       </div>
